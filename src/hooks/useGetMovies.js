@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import getMovies from "../api/get-movies";
 
-export default function useGetMovies(page = 1) {
-  const [movies, setMovies] = useState(null);
+export default function useGetMovies(endOfPage, page) {
+  const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(movies);
   useEffect(() => {
     setIsLoading(true);
     getMovies(page)
       .then((res) => {
-        setIsLoading(false);
-        setMovies(res);
+        if (page === 1) {
+          setIsLoading(false);
+          setMovies(res.results);
+        } else {
+          setIsLoading(false);
+          setMovies((movies) => [...movies, ...res.results]);
+        }
       })
       .catch((res) => {
         setIsLoading(false);
         setError(res);
       });
-  }, []);
+  }, [endOfPage]);
 
   return { movies, error, isLoading };
 }

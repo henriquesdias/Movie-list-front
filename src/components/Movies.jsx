@@ -2,32 +2,49 @@ import styled from "styled-components";
 
 import useGetMovies from "../hooks/useGetMovies";
 import Movie from "./Movie";
+import Loading from "../styles/Loading";
+import MoviesStyle from "../styles/Movies-Style";
 
-import useInfiniteScroll from "../hooks/useInfiniteScroll";
+import { useEffect, useState, useRef } from "react";
 
 export default function Movies() {
-  const { error, movies, isLoading } = useGetMovies();
-  const { height } = useInfiniteScroll();
+  const page = useRef(1);
+  const [endOfPage, setEndOfPage] = useState(false);
+  const { error, movies, isLoading } = useGetMovies(endOfPage, page.current);
+
+  useEffect(() => {
+    if (!isLoading) {
+      function handleScroll() {
+        const isEndOfPage =
+          window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+        if (isEndOfPage) page.current += 1;
+        setEndOfPage(isEndOfPage);
+      }
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
+
   return (
-    <MoviesStyle>
-      {movies?.results.map((e, index) => (
-        <Movie
-          overview={e.overview}
-          title={e.title}
-          image={e.poster_path}
-          key={index}
-        />
-      ))}
-    </MoviesStyle>
+    <ContainerMovies>
+      <MoviesStyle>
+        {movies?.map((e, index) => (
+          <Movie
+            overview={e.overview}
+            title={e.title}
+            image={e.poster_path}
+            key={index}
+          />
+        ))}
+      </MoviesStyle>
+      <Loading loading={isLoading} />
+    </ContainerMovies>
   );
 }
 
-const MoviesStyle = styled.main`
-  margin: 30px auto 0 auto;
-  max-width: 1200px;
-  width: 100%;
+const ContainerMovies = styled.div`
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
 `;

@@ -1,4 +1,4 @@
-export default async function getMovies(page) {
+export default async function getMovies(page = 1) {
   try {
     const URL = `${import.meta.env.VITE_BASE_URL}movies?page=${page}`;
     const response = await fetch(URL, { method: "GET" });
