@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import getMovies from "../api/get-movies";
 
@@ -6,7 +6,7 @@ export default function useGetMovies(endOfPage, page) {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(movies);
+
   useEffect(() => {
     setIsLoading(true);
     getMovies(page)

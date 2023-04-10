@@ -32,6 +32,7 @@ export default function Movies() {
       <MoviesStyle>
         {movies?.map((e, index) => (
           <Movie
+            id={e.id}
             overview={e.overview}
             title={e.title}
             image={e.poster_path}
