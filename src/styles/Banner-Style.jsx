@@ -18,6 +18,14 @@ const BannerStyle = styled.div`
   span {
     font-size: 30px;
   }
+  @media (max-width: 500px) {
+    h2 {
+      font-size: 40px;
+    }
+    span {
+      font-size: 15px;
+    }
+  }
 `;
 
 export default BannerStyle;

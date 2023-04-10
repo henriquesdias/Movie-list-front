@@ -44,6 +44,11 @@ const MovieDetailsStyle = styled.div`
       }
     }
   }
+  @media (max-width: 500px) {
+    > div {
+      height: 300px;
+    }
+  }
 `;
 
 export default MovieDetailsStyle;
