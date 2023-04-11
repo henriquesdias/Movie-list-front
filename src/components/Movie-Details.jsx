@@ -2,6 +2,8 @@ import useGetDetails from "../hooks/useGetDetails";
 import Loading from "../styles/Loading";
 import MovieDetailsStyle from "../styles/MoviesDetails-Style";
 
+import imageDefault from "../assets/default.jpg";
+
 export default function MovieDetails({ id, showDetails, setShowDetails }) {
   const { details, error, isLoading } = useGetDetails(id);
   return (
@@ -16,7 +18,11 @@ export default function MovieDetails({ id, showDetails, setShowDetails }) {
         ) : (
           <>
             <img
-              src={`https://image.tmdb.org/t/p/w500${details?.poster_path}`}
+              src={
+                details?.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${details?.poster_path}`
+                  : imageDefault
+              }
               alt="movie"
             />
             <div>

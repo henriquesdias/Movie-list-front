@@ -8,14 +8,12 @@ export default function useGetMovies(endOfPage, page, searchDescription) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(page);
   useEffect(() => {
     if (searchDescription.length !== 0) {
       setIsLoading(true);
       searchMovies(searchDescription, page)
         .catch((res) => {
           setIsLoading(false);
-          console.log(res);
         })
         .then((res) => {
           if (page === 1) {
@@ -30,7 +28,7 @@ export default function useGetMovies(endOfPage, page, searchDescription) {
   }, [searchDescription, endOfPage]);
 
   useEffect(() => {
-    if (searchDescription.length === 0) {
+    if ((searchDescription.length === 0 && endOfPage) || page === 1) {
       setIsLoading(true);
       getMovies(page)
         .then((res) => {
@@ -47,7 +45,7 @@ export default function useGetMovies(endOfPage, page, searchDescription) {
           setError(res);
         });
     }
-  }, [endOfPage, searchDescription]);
+  }, [endOfPage, searchDescription.length]);
 
   return { movies, error, isLoading };
 }

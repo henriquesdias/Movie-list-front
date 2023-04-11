@@ -9,7 +9,7 @@ import Search from "./Search";
 import { useEffect, useState, useRef } from "react";
 
 export default function Movies() {
-  const page = useRef(1);
+  const page = useRef(0);
   const [endOfPage, setEndOfPage] = useState(false);
   const [valueInput, setValueInput] = useState("");
   const { error, movies, isLoading } = useGetMovies(
@@ -35,7 +35,11 @@ export default function Movies() {
 
   return (
     <ContainerMovies>
-      <Search valueInput={valueInput} setValueInput={setValueInput} />
+      <Search
+        valueInput={valueInput}
+        setValueInput={setValueInput}
+        page={page}
+      />
       <MoviesStyle>
         {movies?.map((e, index) => (
           <Movie

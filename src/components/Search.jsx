@@ -1,10 +1,10 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 import styled from "styled-components";
 
 import { IconSearch } from "../styles/Icons";
 
-export default function Search({ valueInput, setValueInput }) {
+export default function Search({ valueInput, setValueInput, page }) {
   const ref = useRef(null);
   return (
     <SearchLayout>
@@ -17,7 +17,10 @@ export default function Search({ valueInput, setValueInput }) {
         value={valueInput}
         name="search"
         ref={ref}
-        onChange={(e) => setValueInput(e.target.value)}
+        onChange={(e) => {
+          page.current = 1;
+          setValueInput(e.target.value);
+        }}
       />
     </SearchLayout>
   );
