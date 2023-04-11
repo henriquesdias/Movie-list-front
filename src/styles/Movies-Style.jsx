@@ -8,6 +8,9 @@ const MoviesStyle = styled.main`
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  @media (max-width: 500px) {
+    gap: 5px;
+  }
 `;
 
 export default MoviesStyle;

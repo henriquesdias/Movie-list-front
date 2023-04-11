@@ -27,6 +27,12 @@ const MovieStyle = styled.div`
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
   }
+  @media (max-width: 500px) {
+    width: 150px;
+    p {
+      -webkit-line-clamp: 5;
+    }
+  }
 `;
 
 export default MovieStyle;
