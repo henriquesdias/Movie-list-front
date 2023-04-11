@@ -9,7 +9,7 @@ import Search from "./Search";
 import { useEffect, useState, useRef } from "react";
 
 export default function Movies() {
-  const page = useRef(0);
+  const page = useRef(1);
   const [endOfPage, setEndOfPage] = useState(false);
   const [valueInput, setValueInput] = useState("");
   const { error, movies, isLoading } = useGetMovies(
